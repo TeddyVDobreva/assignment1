@@ -1,0 +1,29 @@
+name: Integration
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  integration-tests:
+    runs-on: self-hosted
+    permissions: write-all
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up the environment
+        uses: ./.github/actions/setup-python-env
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install Python dependencies
+        run: source .venv/bin/activate
+        shell: bash
+
+      - name: Run submission check
+        id: run_main
+        run: |
+          uv run python .github/submission_check.py
