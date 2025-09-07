@@ -10,5 +10,5 @@ Append to this readme the following information:
 * Name, surname, and student code of group members
 
 Group 10
-Zofia Dróżdż S______
+Zofia Dróżdż S5853214
 Teodora Dobreva S5888441
