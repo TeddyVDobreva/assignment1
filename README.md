@@ -8,3 +8,7 @@ Append to this readme the following information:
 
 * Group number as of Brightspace
 * Name, surname, and student code of group members
+
+Group 10
+Zofia Dróżdż S______
+Teodora Dobreva S5888441
