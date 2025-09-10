@@ -15,7 +15,7 @@ class KNNeighbours:
 
     def predict(self, new_observation: np.ndarray) -> str:
         """
-        A function that predicts the ground thruth for some new observations
+        A function that predicts the ground truth for some new observations
         based on the k-nearest neighbours algorithm
         """
         # init the dictionary to store the nearest k neighbours
