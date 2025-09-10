@@ -1,8 +1,8 @@
 import numpy as np
 
-class MultipleLinearRegressor:
 
-    def __init__(self): 
+class MultipleLinearRegressor:
+    def __init__(self):
         """
         Constructor
 
@@ -10,7 +10,7 @@ class MultipleLinearRegressor:
         """
         self._parameters = None
 
-    def fit(self, observations: np.ndarray, ground_truth: np.ndarray) ->  None:
+    def fit(self, observations: np.ndarray, ground_truth: np.ndarray) -> None:
         """
         WTF
 
@@ -24,9 +24,6 @@ class MultipleLinearRegressor:
         sure the number of samples is in the row dimension, while the
         variables are in the column dimension.
         """
-
-
-
 
         """
         A function that calculates the parameters as from Equation based on a given training dataset 
@@ -42,30 +39,31 @@ class MultipleLinearRegressor:
         None
         """
         num_samples = observations.shape[0]
-        #add colums of 1s to the observations as observations_prime
+        # add colums of 1s to the observations as observations_prime
         addition = np.ones((num_samples, 1))
-        observations_prime = np.column_stack((obseravtions, addition))
-        #find the transpose observations_prime
-        trans_observations = observations.transpose()
-        #implement formula
-        optimal_parameters = ((trans_observations * observations_prime) ** (-1)) * trans_observations * ground_truth
+        observations_prime = np.column_stack((observations, addition))
+        # find the transpose observations_prime
+        trans_observations = observations_prime.transpose()
+        # implement formula
+        optimal_parameters = (
+            (np.dot(trans_observations, observations_prime) ** (-1))
+            * trans_observations
+            * ground_truth
+        )
         self._parameters = self.vect_to_dict(optimal_parameters)
-        #turn it into a dict
+        # turn it into a dict
 
-    def predict(self, obseravtions: np.ndarray) -> np.ndarray:
+    def predict(self, observations: np.ndarray) -> np.ndarray:
         """
         Return the prediction from observations based on the parameters
         """
-        return [[key * self._parameters[col] for col, key in enumerate[row]] for row in observations]
-    
-    def vect_to_dict(paramaters :np.ndarray) -> dict{int: int}:
+        return [
+            [key * self._parameters[col] for col, key in enumerate[row]]
+            for row in observations
+        ]
+
+    def vect_to_dict(paramaters: np.ndarray) -> dict:
         """
         Returns the dict form of the parameters
         """
         return {x: paramaters[x] for x in range(paramaters.size())}
-
-
-
-
-
-
