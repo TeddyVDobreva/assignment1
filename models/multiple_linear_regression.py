@@ -44,7 +44,7 @@ class MultipleLinearRegressor:
         num_samples = observations.shape[0]
         #add colums of 1s to the observations as observations_prime
         addition = np.ones((num_samples, 1))
-        observations_prime = np.column_stack((obseravtions, addition))
+        observations_prime = np.column_stack((observations, addition))
         #find the transpose observations_prime
         trans_observations = observations.transpose()
         #implement formula
@@ -52,13 +52,13 @@ class MultipleLinearRegressor:
         self._parameters = self.vect_to_dict(optimal_parameters)
         #turn it into a dict
 
-    def predict(self, obseravtions: np.ndarray) -> np.ndarray:
+    def predict(self, observations: np.ndarray) -> np.ndarray:
         """
         Return the prediction from observations based on the parameters
         """
         return [[key * self._parameters[col] for col, key in enumerate[row]] for row in observations]
     
-    def vect_to_dict(paramaters :np.ndarray) -> dict{int: int}:
+    def vect_to_dict(paramaters :np.ndarray) -> dict:
         """
         Returns the dict form of the parameters
         """
