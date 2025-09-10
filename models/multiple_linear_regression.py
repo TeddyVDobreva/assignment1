@@ -2,22 +2,16 @@ import numpy as np
 
 class MultipleLinearRegressor:
 
-    def __init__(self): 
+    def __init__(self, default_parameters: np.ndarray = 0): 
         """
         Constructor
 
         is the constructor with params and b or with observations and training data or is it empty
         """
-        self._parameters = None
+        self._parameters = dict(parameters= default_parameters)
 
     def fit(self, observations: np.ndarray, ground_truth: np.ndarray) ->  None:
         """
-        WTF
-
-        The parameters should be stored as a dict with parameters key,
-        and the corresponding value as a single np.ndarray. Provide a
-        read-only view of the parameters.
-
         DO  WE CHECK
 
         The observations and ground truth should be np.ndarrays. Make
@@ -49,7 +43,7 @@ class MultipleLinearRegressor:
         trans_observations = observations.transpose()
         #implement formula
         optimal_parameters = ((trans_observations * observations_prime) ** (-1)) * trans_observations * ground_truth
-        self._parameters = self.vect_to_dict(optimal_parameters)
+        self._parameters['parameters'] = optimal_parameters
         #turn it into a dict
 
     def predict(self, observations: np.ndarray) -> np.ndarray:
@@ -58,11 +52,9 @@ class MultipleLinearRegressor:
         """
         return [[key * self._parameters[col] for col, key in enumerate[row]] for row in observations]
     
-    def vect_to_dict(paramaters :np.ndarray) -> dict:
-        """
-        Returns the dict form of the parameters
-        """
-        return {x: paramaters[x] for x in range(paramaters.size())}
+    def get_parameters(self) -> np.ndarray:
+        return self._parameters['parameters']
+
 
 
 
