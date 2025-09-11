@@ -62,5 +62,4 @@ class MultipleLinearRegressor:
         self, observations: np.ndarray, ground_truth: np.ndarray
     ) -> bool:
         # check if observations and ground thruth have the same amount of rows (data points)
-        if observations.shape[0] != ground_truth.shape[0]:
-            return False
+        return observations.shape[0] == ground_truth.shape[0]
