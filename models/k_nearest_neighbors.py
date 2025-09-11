@@ -1,6 +1,6 @@
 import numpy as np
 import math
-import heapq
+
 
 
 class KNNeighbours:
@@ -15,19 +15,32 @@ class KNNeighbours:
         self._k = k
 
     def predict(self, new_observation: np.ndarray) -> str:
-        # it should be a dict
-
-        # initialize heap with k infinities
-        init_list = [float("inf") for _ in range(self._k)]
-        k_heap = heapq.heapify(init_list)
-        # go through all points
+        """
+        A function that predicts the ground truth for some new observations
+        based on the k-nearest neighbours algorithm
+        """
+        # init the dictionary to store the nearest k neighbours
+        k_dict = {x: float("inf") for x in range(self._k)}
+        # go through all points to find the closest neighbour
         for row in self._observations:
             # find the distance
             distance = 0
             for i in range(row.size()):
                 distance += (row[i] - new_observation[i]) ** 2
             distance = math.sqrt(distance)
-            # check if its smaller than the largest distance in the heap
-            if distance < k_heap[-1]:
-                # if it is, replace it
-                k_heap[-1] = distance
+
+            # find the var with the largest distance in the k_dict
+            largest_dist_var = max(k_dict, key=k_dict.get)
+            # check if its bigger thant the new distance
+            if distance < k_dict[largest_dist_var]:
+                # if it is not, replace it
+                del k_dict[largest_dist_var]
+                k_dict[row] = distance
+
+        # find the number each ground thruth occurs in the knns
+        ground_truth_occcurance = {x: 0 for x in self._ground_truth}
+        for key in k_dict:
+            key_ground_truth = self._ground_truth[key]
+            ground_truth_occcurance[key_ground_truth] += 1
+        # return the most common ground thruth
+        return max(ground_truth_occcurance, key=ground_truth_occcurance.get)
