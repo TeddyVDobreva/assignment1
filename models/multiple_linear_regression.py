@@ -33,13 +33,14 @@ class MultipleLinearRegressor:
             # find the transpose observations_prime
             trans_observations = observations_prime.transpose()
             # implement formula
-            optimal_parameters = np.dot(
-                np.dot(
-                    (np.dot(trans_observations, observations_prime) ** (-1)),
-                    trans_observations,
-                ),
-                ground_truth,
-            )
+            #(X_trans * X)
+            xT_x = np.dot(trans_observations, observations_prime)
+            #(X_trans * X) ^ (-1)
+            xT_x_inverse = np.linalg.inv(xT_x)
+            # (X_trans * X) ^ (-1) * X_trans
+            xT_x_inverse_xT = np.dot(xT_x_inverse,trans_observations)
+            #params = (X_trans * X) ^ (-1) * X_trans * y
+            optimal_parameters = np.dot(xT_x_inverse_xT,ground_truth,)
             self._parameters["parameters"] = optimal_parameters
 
     def predict(self, observations: np.ndarray) -> np.ndarray:
