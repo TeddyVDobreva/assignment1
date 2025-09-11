@@ -2,6 +2,7 @@ import numpy as np
 import math
 
 
+
 class KNNeighbours:
     def __init__(
         self, obseravtions: np.ndarray = 0, ground_truth: np.ndarray = 0, k: int = 3
@@ -27,6 +28,7 @@ class KNNeighbours:
             for i in range(row.size()):
                 distance += (row[i] - new_observation[i]) ** 2
             distance = math.sqrt(distance)
+
             # find the var with the largest distance in the k_dict
             largest_dist_var = max(k_dict, key=k_dict.get)
             # check if its bigger thant the new distance

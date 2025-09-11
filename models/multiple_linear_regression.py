@@ -2,31 +2,17 @@ import numpy as np
 
 
 class MultipleLinearRegressor:
-    def __init__(self):
+    def __init__(self, default_parameters: np.ndarray = 0):
         """
         Constructor
 
         is the constructor with params and b or with observations and training data or is it empty
         """
-        self._parameters = None
+        self._parameters = dict(parameters=default_parameters)
 
     def fit(self, observations: np.ndarray, ground_truth: np.ndarray) -> None:
         """
-        WTF
-
-        The parameters should be stored as a dict with parameters key,
-        and the corresponding value as a single np.ndarray. Provide a
-        read-only view of the parameters.
-
-        DO  WE CHECK
-
-        The observations and ground truth should be np.ndarrays. Make
-        sure the number of samples is in the row dimension, while the
-        variables are in the column dimension.
-        """
-
-        """
-        A function that calculates the parameters as from Equation based on a given training dataset 
+        A function that calculates the parameters as from Equation based on a given training dataset
         composed of observations and ground truth.
 
         formula: params = (X_trans * X) ^ (-1) * X_trans * y
@@ -38,32 +24,43 @@ class MultipleLinearRegressor:
         Returns:
         None
         """
-        num_samples = observations.shape[0]
-        # add colums of 1s to the observations as observations_prime
-        addition = np.ones((num_samples, 1))
-        observations_prime = np.column_stack((observations, addition))
-        # find the transpose observations_prime
-        trans_observations = observations_prime.transpose()
-        # implement formula
-        optimal_parameters = (
-            (np.dot(trans_observations, observations_prime) ** (-1))
-            * trans_observations
-            * ground_truth
-        )
-        self._parameters = self.vect_to_dict(optimal_parameters)
-        # turn it into a dict
+        # calculate if observations and ground truth have equal nums of rows
+        if self.__validate_observations_ground_truth(observations, ground_truth):
+            num_samples = observations.shape[0]
+            # add colums of 1s to the observations as observations_prime
+            addition = np.ones((num_samples, 1))
+            observations_prime = np.column_stack((observations, addition))
+            # find the transpose observations_prime
+            trans_observations = observations_prime.transpose()
+            # implement formula
+            optimal_parameters = np.dot(
+                np.dot(
+                    (np.dot(trans_observations, observations_prime) ** (-1)),
+                    trans_observations,
+                ),
+                ground_truth,
+            )
+            self._parameters["parameters"] = optimal_parameters
 
     def predict(self, observations: np.ndarray) -> np.ndarray:
         """
         Return the prediction from observations based on the parameters
         """
-        return [
-            [key * self._parameters[col] for col, key in enumerate[row]]
-            for row in observations
-        ]
+        # add colums of 1s to the observations as observations_prime
+        addition = np.ones((observations.shape[0], 1))
+        observations_prime = np.column_stack((observations, addition))
+        return np.dot(observations_prime, self._parameters["parameters"])
 
-    def vect_to_dict(paramaters: np.ndarray) -> dict:
+    @property
+    def parameters(self) -> np.ndarray:
         """
-        Returns the dict form of the parameters
+        Getter: Provides a read only view of the parameters
         """
-        return {x: paramaters[x] for x in range(paramaters.size())}
+        return self._parameters["parameters"]
+
+    def __validate_observations_ground_truth(
+        self, observations: np.ndarray, ground_truth: np.ndarray
+    ) -> bool:
+        # check if observations and ground thruth have the same amount of rows (data points)
+        if observations.shape[0] != ground_truth.shape[0]:
+            return False
