@@ -5,14 +5,15 @@ import math
 
 class KNNeighbours:
     def __init__(
-        self, obseravtions: np.ndarray = 0, ground_truth: np.ndarray = 0, k: int = 3
+        self, k: int = 3, obseravtions: np.ndarray = 0, ground_truth: np.ndarray = 0
     ) -> None:
         """
         Constructor
         """
+        if self.validate_k(k):
+            self._k = k
         self._observations = obseravtions
         self._ground_truth = ground_truth
-        self._k = k
 
     def predict(self, new_observation: np.ndarray) -> str:
         """
@@ -44,3 +45,6 @@ class KNNeighbours:
             ground_truth_occcurance[key_ground_truth] += 1
         # return the most common ground thruth
         return max(ground_truth_occcurance, key=ground_truth_occcurance.get)
+    
+    def validate_k(self, k:int) -> bool:
+        return k > 0
