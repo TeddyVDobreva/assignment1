@@ -5,7 +5,7 @@ from sklearn.linear_model import Lasso
 class SklearnLassoRegressor:
     def __init__(self) -> None:
         """
-        Constructor: initializes a Lasso regression model from sklearn and stores the paremeters in a dictionary.
+        Constructor: Initializes a Lasso regression model from sklearn and stores the paremeters in a dictionary.
         """
         self.model = Lasso()
         self._parameters = {}
@@ -32,5 +32,6 @@ class SklearnLassoRegressor:
         new_observations : np.ndarray (num of samples, variables)
 
         Returns:
-        np.ndarray : Predicted values for the new observations."""
+        np.ndarray : Predicted values for the new observations.
+        """
         return self.model.predict(new_observations)
