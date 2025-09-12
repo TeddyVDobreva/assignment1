@@ -1,5 +1,5 @@
 from collections import Counter
-
+import math
 import numpy as np
 
 
@@ -25,7 +25,8 @@ class KNNeighbours:
         """
         Private function to determine the ground truth for a singular new observation
         """
-        distances = np.linalg.norm(self._parameters["observations"] - x, axis=1)
+        # distances = np.linalg.norm(self._parameters["observations"] - x, axis=1)
+        distances = self.__find_distances(self._parameters["observations"] - x)
         nn_indices = np.argsort(distances)[: self._k]
         nn_ground_truths = self._parameters["ground_truth"][nn_indices]
         most_common = Counter(nn_ground_truths).most_common(1)
@@ -52,3 +53,21 @@ class KNNeighbours:
         Validator for the observations and ground truth, since they have to have the same number of rows (data points)
         """
         return observations.shape[0] == ground_truth.shape[0]
+
+    def __find_single_dist(self, x: np.ndarray) -> float:
+        """
+        A private function to calculate the distance of one data point to the new data
+        Arguments: self, a vector between the data point and the new data
+        """
+        dist_squared = 0
+        for val in x:
+            dist_squared = val**2
+        return math.sqrt(dist_squared)
+
+    def __find_distances(self, vectors_array: np.ndarray) -> np.ndarray:
+        """
+        A private function to calculte the distances between the points in the observations and the new data
+        Arguments: self, a matrix with the rows being the vectors between one data point and the new data
+        """
+        dist = [self.__find_single_dist(vector) for vector in vectors_array]
+        return np.array(dist)
