@@ -2,13 +2,13 @@ import numpy as np
 
 
 class MultipleLinearRegressor:
-    def __init__(self, default_parameters: np.ndarray = 0):
+    def __init__(self):
         """
         Constructor
 
         is the constructor with params and b or with observations and training data or is it empty
         """
-        self._parameters = dict(parameters=default_parameters)
+        self._parameters = {}
 
     def fit(self, observations: np.ndarray, ground_truth: np.ndarray) -> None:
         """
