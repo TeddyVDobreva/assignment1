@@ -19,6 +19,7 @@ if __name__ == "__main__":
 
     # Training the model
     mlr_model.fit(regression_observations, regression_ground_truth)
+
     # Prediction based on found parameters
     mlr_prediction = mlr_model.predict(regression_test_observations)
 
@@ -28,7 +29,9 @@ if __name__ == "__main__":
     # For K-Nearest Neighbors
     # Loading the data set for classification
     iris_df = pd.read_csv("data/iris.csv", delimiter=",")
+    # Encoding the labels
     label_dict = {"Setosa": 0, "Versicolor": 1, "Virginica": 2}
+    # Mapping the labels to numbers
     iris_df.iloc[:, -1] = iris_df.iloc[:, -1].map(label_dict)
     iris_dataset = iris_df.values
 
@@ -42,7 +45,7 @@ if __name__ == "__main__":
     # Instantation of the K-Nearest Neighbors model
     knn = k_nearest_neighbors.KNNeighbours()
 
-    # Train the model
+    # Training the model
     knn.fit(knn_observations, knn_ground_truth)
 
     # Prediction of new observations
@@ -57,6 +60,7 @@ if __name__ == "__main__":
 
     # Training the model
     lasso_model.fit(regression_observations, regression_ground_truth)
+
     # Prediction based on found parameters
     lasso_prediction = lasso_model.predict(regression_test_observations)
 
