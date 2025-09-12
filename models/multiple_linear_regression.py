@@ -5,8 +5,6 @@ class MultipleLinearRegressor:
     def __init__(self):
         """
         Constructor
-
-        is the constructor with params and b or with observations and training data or is it empty
         """
         self._parameters = {}
 
@@ -15,22 +13,22 @@ class MultipleLinearRegressor:
         A function that calculates the parameters as from Equation based on a given training dataset
         composed of observations and ground truth.
 
-        formula: params = (X_trans * X) ^ (-1) * X_trans * y
+        Formula: params = (X_trans * X) ^ (-1) * X_trans * y
 
         Params:
-        obseravtions : np.ndarray (num of samples, variables)
+        observations : np.ndarray (num of samples, variables)
         ground_truth : np.ndarray
 
         Returns:
         None
         """
-        # calculate if observations and ground truth have equal nums of rows
+        # Calculate if observations and ground truth have equal nums of rows
         if self.__validate_observations_ground_truth(observations, ground_truth):
             num_samples = observations.shape[0]
-            # add colums of 1s to the observations as observations_prime
+            # Add colums of 1s to the observations as observations_prime
             addition = np.ones((num_samples, 1))
             observations_prime = np.column_stack((observations, addition))
-            # find the transpose observations_prime
+            # Find the transpose observations_prime
             trans_observations = observations_prime.transpose()
             # Implement formula
             # (X_trans * X)
@@ -39,7 +37,7 @@ class MultipleLinearRegressor:
             xT_x_inverse = np.linalg.inv(xT_x)
             # (X_trans * X) ^ (-1) * X_trans
             xT_x_inverse_xT = np.dot(xT_x_inverse, trans_observations)
-            # params = (X_trans * X) ^ (-1) * X_trans * y
+            # Params = (X_trans * X) ^ (-1) * X_trans * y
             optimal_parameters = np.dot(
                 xT_x_inverse_xT,
                 ground_truth,
@@ -48,9 +46,15 @@ class MultipleLinearRegressor:
 
     def predict(self, observations: np.ndarray) -> np.ndarray:
         """
-        Return the prediction from observations based on the parameters
+        Returns the prediction from observations based on the parameters
+
+        Params:
+        observations : np.ndarray (num of samples, variables)
+
+        Return:
+        np.ndarray : The predicted values for the new observations.
         """
-        # add colums of 1s to the observations as observations_prime
+        # Add colums of 1s to the observations as observations_prime
         addition = np.ones((observations.shape[0], 1))
         observations_prime = np.column_stack((observations, addition))
         return np.dot(observations_prime, self._parameters["parameters"])
@@ -58,12 +62,24 @@ class MultipleLinearRegressor:
     @property
     def parameters(self) -> np.ndarray:
         """
-        Getter: Provides a read only view of the parameters
+        Getter: Provides a read only view of the parameters.
+
+        Returns:
+        np.ndarray : The parameters of the model.
         """
         return self._parameters["parameters"]
 
     def __validate_observations_ground_truth(
         self, observations: np.ndarray, ground_truth: np.ndarray
     ) -> bool:
-        # check if observations and ground thruth have the same amount of rows (data points)
+        """
+        Checks if the observations and ground truth have the same number of rows.
+
+        Params:
+        observations : np.ndarray (num of samples, variables)
+        ground_truth : np.ndarray
+
+        Return:
+        bool : True if the number of rows are equal, False otherwise.
+        """
         return observations.shape[0] == ground_truth.shape[0]
