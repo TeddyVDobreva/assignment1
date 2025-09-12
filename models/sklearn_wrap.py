@@ -3,7 +3,7 @@ from sklearn.linear_model import Lasso
 
 
 class SklearnLassoRegressor:
-    def __init__(self):
+    def __init__(self) -> None:
         """
         Constructor: initializes a Lasso regression model from sklearn and stores the paremeters in a dictionary.
         """
