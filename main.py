@@ -28,7 +28,7 @@ if __name__ == "__main__":
     # For K-Nearest Neighbors
     # Loading the data set for classification
     iris_df = pd.read_csv("data/iris.csv", delimiter=",")
-    label_dict = {"Iris-setosa": 0, "Iris-versicolor": 1, "Iris-virginica": 2}
+    label_dict = {"Setosa": 0, "Versicolor": 1, "Virginica": 2}
     iris_df.iloc[:, -1] = iris_df.iloc[:, -1].map(label_dict)
     iris_dataset = iris_df.values
 
