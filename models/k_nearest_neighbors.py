@@ -3,7 +3,7 @@ import math
 import numpy as np
 
 
-class KNNeighbours:
+class K_Nearest_Neighbors:
     def __init__(self, k: int = 3) -> None:
         """
         Constructor

@@ -43,7 +43,7 @@ if __name__ == "__main__":
     knn_test_observations = iris_dataset[113:, :-1]
 
     # Instantation of the K-Nearest Neighbors model
-    knn = k_nearest_neighbors.KNNeighbours()
+    knn = k_nearest_neighbors.K_Nearest_Neighbors()
 
     # Training the model
     knn.fit(knn_observations, knn_ground_truth)
