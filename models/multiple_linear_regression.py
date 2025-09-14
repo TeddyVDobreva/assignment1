@@ -3,7 +3,7 @@ import numpy as np
 
 class MultipleLinearRegression:
     """
-    Class for multiple linear regrrssion
+    Class for multiple linear regression
     """
 
     def __init__(self) -> None:

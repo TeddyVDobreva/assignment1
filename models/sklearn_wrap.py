@@ -3,7 +3,9 @@ from sklearn.linear_model import Lasso
 
 
 class SklearnLassoRegressor:
-    """Lasso scikit-learn wrapper class"""
+    """
+    Lasso scikit-learn wrapper class
+    """
 
     def __init__(self) -> None:
         """
