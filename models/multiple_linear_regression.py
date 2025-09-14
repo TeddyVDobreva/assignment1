@@ -5,6 +5,7 @@ class MultipleLinearRegression:
     """
     Class for multiple linear regrrssion
     """
+
     def __init__(self) -> None:
         """
         Constructor
@@ -72,7 +73,9 @@ class MultipleLinearRegression:
         return self._parameters["parameters"]
 
     def __validate_observations_ground_truth(
-        self, observations: np.ndarray, ground_truth: np.ndarray,
+        self,
+        observations: np.ndarray,
+        ground_truth: np.ndarray,
     ) -> bool:
         """
         Checks if the observations and ground truth have the same number of rows.

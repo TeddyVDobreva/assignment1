@@ -8,6 +8,7 @@ class KNearestNeighbors:
     """
     Class for k-nearest neighbors
     """
+
     def __init__(self, k: int = 3) -> None:
         """
         Constructor
@@ -76,7 +77,9 @@ class KNearestNeighbors:
         return k > 0
 
     def __validate_observations_ground_truth(
-        self, observations: np.ndarray, ground_truth: np.ndarray,
+        self,
+        observations: np.ndarray,
+        ground_truth: np.ndarray,
     ) -> bool:
         """
         Validator for the observations and ground truth
