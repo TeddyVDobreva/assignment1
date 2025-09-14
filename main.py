@@ -1,11 +1,12 @@
 import pandas as pd
+
 from models import k_nearest_neighbors, multiple_linear_regression, sklearn_wrap
 
 if __name__ == "__main__":
     # For Multiple Linear Regression
     # Loading the data set for regression
     wine_df = pd.read_csv("data/winequality-red[1].csv", delimiter=";")
-    wine_dataset = wine_df.values
+    wine_dataset = wine_df.to_numpy()
 
     # Getting the ground truth and observations
     regression_ground_truth = wine_dataset[:1200, -1]
@@ -33,7 +34,7 @@ if __name__ == "__main__":
     label_dict = {"Setosa": 0, "Versicolor": 1, "Virginica": 2}
     # Mapping the labels to numbers
     iris_df.iloc[:, -1] = iris_df.iloc[:, -1].map(label_dict)
-    iris_dataset = iris_df.values
+    iris_dataset = iris_df.to_numpy()
 
     # Getting the observations and ground truth
     knn_observations = iris_dataset[:113, :-1]

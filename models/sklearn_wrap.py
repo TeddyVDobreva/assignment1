@@ -3,9 +3,12 @@ from sklearn.linear_model import Lasso
 
 
 class SklearnLassoRegressor:
+    """Lasso scikit-learn wrapper class"""
+
     def __init__(self) -> None:
         """
-        Constructor: Initializes a Lasso regression model from sklearn and stores the paremeters in a dictionary.
+        Constructor: Initializes a Lasso regression model from sklearn
+        and stores the paremeters in a dictionary.
         """
         self.model = Lasso()
         self._parameters = {}
@@ -26,7 +29,8 @@ class SklearnLassoRegressor:
 
     def predict(self, new_observations: np.ndarray) -> np.ndarray:
         """
-        Predict the ground truth for new observations using the trained Lasso regression model.
+        Predict the ground truth for new observations using
+        the trained Lasso regression model.
 
         Params:
         new_observations : np.ndarray (num of samples, variables)
