@@ -2,7 +2,10 @@ import numpy as np
 
 
 class MultipleLinearRegression:
-    def __init__(self):
+    """
+    Class for multiple linear regrrssion
+    """
+    def __init__(self) -> None:
         """
         Constructor
         """
@@ -10,8 +13,7 @@ class MultipleLinearRegression:
 
     def fit(self, observations: np.ndarray, ground_truth: np.ndarray) -> None:
         """
-        A function that calculates the parameters as from Equation based on a given training dataset
-        composed of observations and ground truth.
+        Finds the parameters from given observations and ground truth.
 
         Formula: params = (X_trans * X) ^ (-1) * X_trans * y
 
@@ -31,15 +33,15 @@ class MultipleLinearRegression:
             # Find the transpose observations_prime
             trans_observations = observations_prime.transpose()
             # Implement formula
-            # (X_trans * X)
-            xT_x = np.dot(trans_observations, observations_prime)
-            # (X_trans * X) ^ (-1)
-            xT_x_inverse = np.linalg.inv(xT_x)
-            # (X_trans * X) ^ (-1) * X_trans
-            xT_x_inverse_xT = np.dot(xT_x_inverse, trans_observations)
-            # Params = (X_trans * X) ^ (-1) * X_trans * y
+            # calculate the first part in the formula (X_trans * X)
+            xt_x = np.dot(trans_observations, observations_prime)
+            # calculate the next part of the formula (X_trans * X) ^ (-1)
+            xt_x_inverse = np.linalg.inv(xt_x)
+            # calculate the next part of the formula (X_trans * X) ^ (-1) * X_trans
+            xt_x_inverse_xt = np.dot(xt_x_inverse, trans_observations)
+            # Parameters are calculated with formula (X_trans * X) ^ (-1) * X_trans * y
             optimal_parameters = np.dot(
-                xT_x_inverse_xT,
+                xt_x_inverse_xt,
                 ground_truth,
             )
             self._parameters["parameters"] = optimal_parameters
@@ -70,7 +72,7 @@ class MultipleLinearRegression:
         return self._parameters["parameters"]
 
     def __validate_observations_ground_truth(
-        self, observations: np.ndarray, ground_truth: np.ndarray
+        self, observations: np.ndarray, ground_truth: np.ndarray,
     ) -> bool:
         """
         Checks if the observations and ground truth have the same number of rows.

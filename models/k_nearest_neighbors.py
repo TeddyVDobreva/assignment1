@@ -1,9 +1,13 @@
-from collections import Counter
 import math
+from collections import Counter
+
 import numpy as np
 
 
 class KNearestNeighbors:
+    """
+    Class for k-nearest neighbors
+    """
     def __init__(self, k: int = 3) -> None:
         """
         Constructor
@@ -38,7 +42,7 @@ class KNearestNeighbors:
         Return:
         int : The predicted class for the new observation
         """
-        # Distances = np.linalg.norm(self._parameters["observations"] - x, axis=1)
+        # np.linalg.norm gives mistakes for float numbers, so we use a funstion
         distances = self.__find_distances(self._parameters["observations"] - x)
         nn_indices = np.argsort(distances)[: self._k]
         nn_ground_truths = self._parameters["ground_truth"][nn_indices]
@@ -72,10 +76,10 @@ class KNearestNeighbors:
         return k > 0
 
     def __validate_observations_ground_truth(
-        self, observations: np.ndarray, ground_truth: np.ndarray
+        self, observations: np.ndarray, ground_truth: np.ndarray,
     ) -> bool:
         """
-        Validator for the observations and ground truth, since they have to have the same number of rows (data points)
+        Validator for the observations and ground truth
 
         Params:
         observations : np.ndarray (num of samples, variables)
@@ -89,7 +93,7 @@ class KNearestNeighbors:
     def __find_single_dist(self, x: np.ndarray) -> float:
         """
         A private function to calculate the distance of one data point to the new data
-        
+
         Params:
         x : np.ndarray (variables)
 
@@ -103,7 +107,8 @@ class KNearestNeighbors:
 
     def __find_distances(self, vectors_array: np.ndarray) -> np.ndarray:
         """
-        A private function to calculte the distances between the points in the observations and the new data
+        Calculte the distances between the points
+        in the observations and the new data
 
         Params:
         vectors_array : np.ndarray (num of samples, variables)
