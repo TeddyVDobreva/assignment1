@@ -15,7 +15,7 @@ if __name__ == "__main__":
     regression_test_observations = wine_dataset[1200:, :-1]
 
     # Instantation of the Multiple Linear Regressor
-    mlr_model = multiple_linear_regression.MultipleLinearRegressor()
+    mlr_model = multiple_linear_regression.MultipleLinearRegression()
 
     # Training the model
     mlr_model.fit(regression_observations, regression_ground_truth)
@@ -43,7 +43,7 @@ if __name__ == "__main__":
     knn_test_observations = iris_dataset[113:, :-1]
 
     # Instantation of the K-Nearest Neighbors model
-    knn = k_nearest_neighbors.K_Nearest_Neighbors()
+    knn = k_nearest_neighbors.KNearestNeighbors()
 
     # Training the model
     knn.fit(knn_observations, knn_ground_truth)

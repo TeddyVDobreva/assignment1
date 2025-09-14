@@ -1,7 +1,7 @@
 import numpy as np
 
 
-class MultipleLinearRegressor:
+class MultipleLinearRegression:
     def __init__(self):
         """
         Constructor
